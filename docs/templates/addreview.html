@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-image: url('https://img.freepik.com/premium-photo/abstract-background-images-wallpaper-ai-generated_643360-68992.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: black;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .navbar a.profile {
+            position: absolute;
+            right: 0;
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 25px;
+        }
+
+        .left-section {
+            width: 50%; /* Adjust the width as needed */
+        }
+
+        .right-section {
+            width: 50%; /* Adjust the width as needed */
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+            text-align: right;
+            padding-right: 10px;
+        }
+
+        .left-section label {
+        display: block; /* Change from inline-block to block */
+        text-align: left; /* Align the text to the left */
+        width: auto; /* Allow the label to take the full width available */
+    }
+
+
+    </style>
+</head>
+<body>
+    <iframe id="hidden-iframe" name="hidden-iframe" style="display: none;"></iframe>
+
+    <!-- Navigation bar -->
+    <div class="navbar">
+        <a href="#">TEAM G</a>
+        <a href="#" class="profile">{{ username }}</a>
+    </div>
+
+    <center>
+        <h1>Submit a review here</h1>
+    </center>
+
+    <div class="form-container">
+        <!-- Left Section for Review Details -->
+        <div class="left-section">
+            <form action="/addreview" method="post" target="hidden-iframe">
+                <h1>Rate and Review</h1>
+                <div>
+                    <label for="reviewer_name">Reviewer:</label>
+                    <input type="text" id="reviewer_name" name="reviewer_name", value="{{ username }}" readonly>
+                </div>
+
+                <br>
+
+                <div>
+                    <label for="review_for">Review for:</label>
+                    <select name="review_for" class="custom-select">
+                        <option value="Shima">Shima</option>
+                        <option value="Jonathan">Jonathan</option>
+                        <option value="Charvi">Charvi</option>
+                        <option value="Dhruvin">Dhruvin</option>
+                        <option value="Adit">Adit</option>
+                    </select>
+                </div>
+                <br>
+
+                <div>
+                    <label for="review">Review:</label>
+                    <textarea id="review" name="review" rows="4" cols="50"></textarea>
+                </div>
+                <div style="padding: 50px; margin: 10px 80px; border: solid;">
+            <h2>Rate them on a scale from 1 to 10:</h2>
+
+                 <label for="effort"> Effort expended on this topic:
+            <input type="number" name="effort" id="effort" min="1" max="10" step="1" value="0"  oninput="validateRating(this);" style="width: 50px;">
+                 </label>
+                <br>
+
+                <label for="communication">Communication with team:
+                <input type="number" name="communication" id="communication" min="1" max="10" step="1" value="0"  oninput="validateRating(this);" style="width: 50px;">
+                    </label>
+                <br>
+
+                <label for="participation">Participation in critical reviews:
+                <input type="number" name="participation" id="participation" min="1" max="10" step="1" value="0"  oninput="validateRating(this);" style="width: 50px;">
+                </label>
+                <br>
+
+                <label for="meetings">Attending team meetings:
+                <input type="number" name="meetings" id="meetings" min="1" max="10" step="1" value="0"  oninput="validateRating(this);" style="width: 50px;">
+                </label>
+                <br>
+
+            </div>
+                <br>
+                <br>
+
+                <button type="submit" name="action" value="save">Save</button>
+                <button type="submit" name="action" value="Add">Submit</button>
+                <br>
+                <br>
+                <br>
+                <br>
+            </form>
+        </div>
+    </div>
+
+
+
+    <script>
+
+    function validateRating(input) {
+            input.value = Math.min(10, Math.max(0, input.value));
+        }
+        function clearForm() {
+            document.getElementById("reviewer_name").value = "";
+            document.getElementById("review_for").value = "";
+            document.getElementById("review").value = "";
+
+        }
+    </script>
+</body>
+</html>

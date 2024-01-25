@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Settings</title>
+    <style>
+        /* Include the CSS styles from the forgot password page here */
+        * {
+            margin: 0;
+            padding: 0;
+            line-height: 27px;
+            text-align: justify;
+        }
+
+        body {
+            background-image: url('https://img.freepik.com/premium-photo/abstract-background-images-wallpaper-ai-generated_643360-68992.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            font-family: verdana;
+            font-size: 11px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1.getintouch {
+            font-family: 'Alfa Slab One', cursive;
+            font-size: 25px;
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+
+        #settings {
+            margin-bottom: 11px;
+            padding-right: 20px;
+            padding-bottom: 11px;
+            text-align: left;
+            margin-right: 5%;
+        }
+
+        #settings label {
+            color: #020000;
+            text-transform: capitalize;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            display: inline-block;
+            width: 150px;
+        }
+
+        #settings div {
+            margin-bottom: 30px;
+        }
+
+        #settings input[type="text"],
+        #settings textarea {
+            background-color: #C9C7BA;
+            border: solid 2px #000;
+            width: 236px;
+            padding: 2px;
+            font-family: tahoma;
+            color: #525252;
+            padding: 4px;
+            font-size: 15px;
+            letter-spacing: 1px;
+            text-align: left;
+            height: 19px;
+            vertical-align: text-top;
+            -webkit-transition: all 0.5s ease-in-out;
+            -moz-transition: all 0.5s ease-in-out;
+            -o-transition: all 0.5s ease-in-out;
+            transition: all 0.5s ease-in-out;
+        }
+
+        #settings input[type="text"]:focus,
+        #settings textarea:focus {
+            background-color: #fcf8b2;
+            border: dotted 2px #000;
+        }
+
+        #settings div:last-child {
+            margin-right: 66px;
+        }
+
+        #settings button[type="submit"] {
+            background-color: #000;
+            color: #FFF;
+            padding: 4px 15px;
+            border-radius: 2px;
+            margin-left: 15px;
+            letter-spacing: 1px;
+            -webkit-transition: all 0.5s ease-in-out;
+            -moz-transition: all 0.5s ease-in-out;
+            -o-transition: all 0.5s ease-in-out;
+            transition: all 0.5s ease-in-out;
+            margin-top: 12px;
+        }
+
+        #settings button[type="submit"]:hover {
+            background-color: #9C9C9C;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+    function confirmAndUpdate() {
+        var result = confirm("Are you sure you want to update your information?");
+        if (result) {
+            // If user clicks 'OK', submit the form using AJAX
+            var form = document.getElementById("settingsForm");
+            var formData = new FormData(form);
+
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById("successMessage").innerHTML = xhr.responseText;
+                }
+            };
+
+            xhr.open("POST", form.action, true);
+            xhr.send(formData);
+        }
+    }
+</script>
+
+
+</head>
+<body>
+
+    <div id="settings">
+        <h1 class="getintouch">Account Settings</h1>
+        <form id="settingsForm" method="post" action="/update_settings">
+
+            <div>
+                <label style="font-size: 12px;">Username: </label>
+                <input type="text" id="username" name="username" value="{{username}}" readonly>
+            </div>
+            <div>
+                <label style="font-size: 12px;">First Name: </label>
+                <input type="text" id="firstname" name="firstname" value="{{firstname}}" required>
+            </div>
+            <div>
+                <label style="font-size: 12px;">Last Name: </label>
+                <input type="text" id="lastname" name="lastname" value="{{lastname}}" required>
+            </div>
+
+            <div>
+                <label style="font-size: 12px;">Student ID: </label>
+                <input type="text" id="studentid" name="studentid" value="{{studentid}}" required>
+            </div>
+            <div>
+                <label style="font-size: 12px;">User Email: </label>
+                <input type="text" id="useremail" name="useremail" value="{{useremail}}" required>
+            </div>
+            <div>
+                <!-- Add a link that directs to forgot_password.html -->
+                <label style="font-size: 12px;">Change password: </label>
+                <a href="/forgot_password" style="font-size: 18px;">Click here to change password</a>
+            </div>
+            <button type="button" onclick="confirmAndUpdate()">Update Profile</button>
+
+        </form>
+        <div id="successMessage" style="color: black; font-size: 18px;"></div>
+
+    </div>
+
+
+
+
+</body>
+
+
+</html>
+

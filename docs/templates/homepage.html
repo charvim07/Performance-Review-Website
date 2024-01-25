@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+
+        body{
+            background-image: url('https://img.freepik.com/premium-photo/abstract-background-images-wallpaper-ai-generated_643360-68992.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+
+            margin: 0;
+            padding: 0;
+
+        }
+
+        /* CSS for the navigation bar */
+        .navbar {
+            background-color: black;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+
+        }
+
+        .profile-dropdown {
+            position: absolute;
+            right: 0;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: black;
+            min-width: 160px;
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #333;
+        }
+
+        .profile-dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .profile-container {
+            text-align: center;
+        }
+
+        .profile-circle {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 2px solid #333;
+            background-color: #ffffff; /* Change the background color as desired */
+            margin: 10px;
+            color: #000000;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .profile-circle:hover {
+            background-color: black; /* Background color on hover */
+            color: white; /* Text color on hover */
+        }
+
+        h2 {
+            color: black; /* Text color */
+            text-decoration: none; /* Remove underlines */
+        }
+        .modal {
+            display: none;
+            position: absolute;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-image: url('https://img.freepik.com/premium-photo/abstract-background-images-wallpaper-ai-generated_643360-68992.jpg');
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 200px;
+    height: 70px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 12px;
+    text-align: center;
+    font-family: verdana;
+	font-size: 20px;
+}
+
+.close-button {
+            color:#525252;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+            color:  #fcf8b2;
+            text-decoration: none;
+            cursor: pointer;
+}
+#welcomeText{
+    color: white;
+}
+
+    </style>
+<script>
+function showWelcomeMessage(username) {
+    setTimeout(function() {
+        if (username && username !== "") {
+            document.getElementById('welcomeText').innerText = "Welcome " + username + "!";
+            var modal = document.getElementById("welcomeModal");
+            modal.style.display = "block";
+        }
+    }, 1000); // Adjust time as needed
+}
+
+// When the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Close button event listener
+    var closeButton = document.getElementsByClassName("close-button")[0];
+    closeButton.onclick = function() {
+        var modal = document.getElementById("welcomeModal");
+        modal.style.display = "none";
+    };
+
+    // Close the modal if the user clicks outside of it
+    window.onclick = function(event) {
+        var modal = document.getElementById("welcomeModal");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
+});
+</script>
+
+
+</head>
+<body onload="showWelcomeMessage('{{username}}')">
+<div id="welcomeModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <p id="welcomeText"></p>
+    </div>
+</div>
+
+    <!-- Navigation bar -->
+    <div class="navbar">
+        <a href="#">TEAM G</a>
+        <div class="profile-dropdown">
+            <a href="#" class="profile" onclick="toggleDropdown()"><p>{{username}}</p></a>
+            <div id="myDropdown" class="dropdown-content">
+                <a href="/settings.html">Settings</a>
+                <a href="#" onclick="logout()">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- <center>
+        <h4>Click on any name to view the reviews for them</h4>
+    </center> -->
+    <center>
+        <h4>Click on the name to view a review </h4>
+    </center>
+    <div class="profile-container">
+        <a href="/"  class="profile-circle">{{ unlogged_users[0] }}</a>
+        <a href="/"  class="profile-circle">{{ unlogged_users[1] }}</a>
+        <a href="/"  class="profile-circle">{{ unlogged_users[2] }}</a>
+    </div>
+    <div class="profile-container">
+        <a href="/"  class="profile-circle">{{ unlogged_users[3] }}</a>
+        <a href="user" class="profile-circle">{{ username }}</a>
+    </div>
+
+
+    <h2>Submit a review using the link below:</h2>
+    <ul>
+        <li><a href="/addreview.html">Leave a Review</a></li>
+         <!-- Kept the commented code for any new updates -->
+<!--        <li><a href="#">Topic 2</a></li>-->
+<!--        <li><a href="#">Topic 3</a></li>-->
+<!--        <li><a href="#">Topic 4</a></li>-->
+        <!-- Add more topics as needed -->
+    </ul>
+
+<!--    <h2>View draft review for:</h2>-->
+<!--    <ul>-->
+<!--        <li><a href="#">Charvi</a></li>-->
+<!--        <li><a href="#">Shima</a></li>-->
+<!--        <li><a href="#">Jonathan</a></li>-->
+<!--        <li><a href="#">Adit</a></li>-->
+<!--        <li><a href="#">Dhruvin</a></li>-->
+<!--        &lt;!&ndash; Add more topics as needed &ndash;&gt;-->
+<!--    </ul>-->
+    <script>
+    function toggleDropdown() {
+        var dropdown = document.getElementById("myDropdown");
+        if (dropdown.style.display === "block") {
+            dropdown.style.display = "none";
+        } else {
+            dropdown.style.display = "block";
+        }
+    }
+
+    function logout() {
+        // Add any additional logout logic here if needed
+        var result = confirm("Are you sure you want to Logout?");
+        if (result) {
+            window.location.href = "http://localhost:8080/"; // Redirect to the login page
+        }
+        }
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(event) {
+        if (!event.target.matches('.profile')) {
+            var dropdown = document.getElementById("myDropdown");
+            if (dropdown.style.display === "block") {
+                dropdown.style.display = "none";
+            }
+        }
+    }
+</script>
+
+
+</body>
+</html>

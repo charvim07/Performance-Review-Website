@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        /* CSS for styling the body and background image */
+        body {
+            background-image: url('https://img.freepik.com/premium-photo/abstract-background-images-wallpaper-ai-generated_643360-68992.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+            text-align: right;
+            padding-right: 10px;
+        }
+
+        /* CSS for the container (centered content) */
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* CSS for the left side content */
+        .left-content {
+            padding: 100px;
+        }
+
+        .left-content h1 {
+            font-size: 75px;
+            font-weight: bold;
+            margin: 0%;
+        }
+
+        .left-content p {
+            text-align: left;
+            font-size: 20px;
+            margin: 0%;
+            padding: 20px;
+        }
+
+        /* CSS for the login form */
+        .login-form {
+            width: 300px;
+            margin: 10%;
+            padding: 100px;
+            border: 6px solid #ccc;
+            background-color: rgba(244, 244, 244, 0.5);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            display: table;
+            width: 100%;
+        }
+
+        .form-group label {
+            flex: 1;
+            margin: 0;
+        }
+
+        .form-group label[for="show-password"] {
+            flex: 0;
+            margin-right: 10px;
+        }
+
+        .logbutton {
+            background-color: white;
+            border: 1px solid black;
+            color: black;
+            padding: 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+        }
+
+        /* Style the submit button */
+        input[type=submit] {
+          background-color: #04AA6D;
+          color: white;
+        }
+
+        /* Style the container for inputs */
+        .container {
+          background-color: #f1f1f1;
+          padding: 20px;
+        }
+
+        /* The message box is shown when the user clicks on the password field */
+        #message {
+          display:none;
+          color: #000;
+          position: relative;
+          padding: 20px;
+          margin-top: 10px;
+        }
+
+        #message p {
+          padding: 10px 35px;
+          font-size: 18px;
+        }
+
+        /* Add a green text color and a checkmark when the requirements are right */
+        .valid {
+          color: green;
+        }
+
+        .valid:before {
+          position: relative;
+          left: -35px;
+          content: "✔";
+        }
+
+        /* Add a red text color and an "x" when the requirements are wrong */
+        .invalid {
+          color: white;
+        }
+
+        .invalid:before {
+          position: relative;
+          left: -35px;
+          content: "✖";
+        }
+
+    </style>
+</head>
+<body>
+
+% for message in messages:
+<div role="alert">
+    <strong>Message:</strong> {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+% end
+
+<h3>Create your account!</h3>
+<form method="post" action="/signup">
+
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" name="username"
+               placeholder="Create A Username (use only letters and numbers)" Required>
+    </div>
+    <div class="form-group">
+        <label for="fname">First Name</label>
+        <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter Your First Name" Required>
+    </div>
+    <div class="form-group">
+        <label for="lname">Last Name</label>
+        <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Your Last Name" Required>
+    </div>
+    <div class="form-group">
+        <label for="student_id">Student ID</label>
+        <input type="text" class="form-control" id="student_id" name="student_id" placeholder="Enter Your Student ID"
+               Required>
+
+    <div class="form-group">
+        <label for="pass1">Password</label>
+        <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Create Your Password" Required>
+    </div>
+    <div class="form-group">
+        <label for="pass2">Confirm Password</label>
+        <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Confirm Your Password"
+               Required>
+    </div>
+    <button type="submit" class="btn btn-primary">Sign Up</button>
+    </div>
+</form>
+<div id="message">
+  <h3>Password must contain the following:</h3>
+  <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+  <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+  <p id="number" class="invalid">A <b>number</b></p>
+  <p id="length" class="invalid">Between <b>8 and 20 characters</b></p>
+</div>
+
+<script>
+    var myInput = document.getElementById("pass1");
+    var letter = document.getElementById("letter");
+    var capital = document.getElementById("capital");
+    var number = document.getElementById("number");
+    var length = document.getElementById("length");
+
+    // When the user clicks on the password field, show the message box
+    myInput.onfocus = function() {
+      document.getElementById("message").style.display = "block";
+    }
+
+    // When the user clicks outside of the password field, hide the message box
+    myInput.onblur = function() {
+      document.getElementById("message").style.display = "none";
+    }
+
+    // When the user starts to type something inside the password field
+    myInput.onkeyup = function() {
+      // Validate lowercase letters
+      var lowerCaseLetters = /[a-z]/g;
+      if(myInput.value.match(lowerCaseLetters)) {
+        letter.classList.remove("invalid");
+        letter.classList.add("valid");
+      } else {
+        letter.classList.remove("valid");
+        letter.classList.add("invalid");
+      }
+
+      // Validate capital letters
+      var upperCaseLetters = /[A-Z]/g;
+      if(myInput.value.match(upperCaseLetters)) {
+        capital.classList.remove("invalid");
+        capital.classList.add("valid");
+      } else {
+        capital.classList.remove("valid");
+        capital.classList.add("invalid");
+      }
+
+      // Validate numbers
+      var numbers = /[0-9]/g;
+      if(myInput.value.match(numbers)) {
+        number.classList.remove("invalid");
+        number.classList.add("valid");
+      } else {
+        number.classList.remove("valid");
+        number.classList.add("invalid");
+      }
+
+      // Validate length
+      if(myInput.value.length >= 8 && myInput.value.length <= 20) {
+        length.classList.remove("invalid");
+        length.classList.add("valid");
+      } else {
+         length.classList.remove("valid");
+         length.classList.add("invalid");
+      }
+    }
+</script>
+</body>
+</html>
